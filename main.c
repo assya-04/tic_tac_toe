@@ -106,8 +106,35 @@ void depl_machine(char Tab[line][col])
 int main()
 {
 	char Tab[line][col];
+	char player='X';
+	int ligne,coll;
 	initTab(Tab);
-	afficheTab(Tab);
+	
+	while(1)
+	{
+		afficheTab(Tab);
+		printf("Joueur %c , entrez la ligne et la colonne: ",player);
+		scanf("%d %d ",&ligne, &coll);
+		if(ligne <0 || ligne>=line || coll<0 || coll>=col ||Tab[ligne][coll] != ' ')
+		{
+			printf("Mouvement invalide. Reessayez. \n");
+			continue;
+		}
+		Tab[ligne][coll]=player;
+		if (voir_gagne(Tab, player)) 
+		{
+            afficheTab(Tab);
+            printf("Joueur %c a gagné !\n", player);
+            break;
+        }
 
+        if (rempli(Tab)) {
+            afficheTab(Tab);
+            printf("Match nul !\n");
+            break;
+        }
+
+	}
+	
 	return 0;
 }
